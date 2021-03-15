@@ -7,7 +7,7 @@ using JustCSharp.Epub.Insfrastructure;
 
 namespace JustCSharp.Epub.Mime
 {
-    public class EpubMimetype : EpubElementTextFile
+    public class EpubMimetype : EpubElementXmlFile
     {
         #region Const
 

@@ -1,55 +1,68 @@
-using System.Threading;
-using System.Threading.Tasks;
+using System.Text;
+using JustCSharp.Epub.Extensions;
+using JustCSharp.Epub.Insfrastructure;
 
 namespace JustCSharp.Epub.Documents
 {
-    public class EpubContentDocument: EpubDocument
+    public class EpubContentDocument: EpubElementXmlFile
     {
         #region Const
-
-        
 
         #endregion
 
         #region Properties
 
-        
+        public EpubRendition MetaInf => (EpubRendition) Parent;
 
         #endregion
 
         #region Constructors
 
+        internal EpubContentDocument()
+        {
+            SetDefaultData();
+        }
+
+        internal EpubContentDocument(EpubRendition metaInf)
+        {
+            SetDefaultData();
+            Parent = metaInf;
+            Encoding = MetaInf.Publication.Encoding;
+        }
         
+        private void SetDefaultData()
+        {
+            FileName = "content.html";
+            BufferSize = 4096;
+            Encoding = Encoding.UTF8;
+        }
 
         #endregion
 
         #region Public Methods
 
-        
+
 
         #endregion
-        
+
         #region Internal & Private Methods
 
-        public override void Read()
+        protected override void OnRawDataChanged(string rawData)
         {
-            throw new System.NotImplementedException();
+            var newObject = rawData.DeserializeXml<EpubContentDocument>();
+
         }
 
-        public override async Task ReadAsync(CancellationToken cancellationToken = default)
+        protected override string BuildRawData()
         {
-            throw new System.NotImplementedException();
+            return this.SerializeXml(Encoding);
         }
 
-        public override void Write()
-        {
-            throw new System.NotImplementedException();
-        }
+        #endregion
 
-        public override async Task WriteAsync(CancellationToken cancellationToken = default)
-        {
-            throw new System.NotImplementedException();
-        }
+        #region Sub Classes
+
+        
 
         #endregion
     }

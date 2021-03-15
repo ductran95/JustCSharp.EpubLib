@@ -29,7 +29,6 @@ namespace JustCSharp.Epub.Meta
         internal EpubMetaInf()
         {
             SetDefaultData();
-            Container = new EpubContainer();
         }
         
         internal EpubMetaInf(EpubPublication publication)

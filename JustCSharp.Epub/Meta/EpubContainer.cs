@@ -13,7 +13,7 @@ namespace JustCSharp.Epub.Meta
     /// Required container.xml file
     /// </summary>
     [XmlRoot(ElementName = "container", Namespace = "urn:oasis:names:tc:opendocument:xmlns:container")]
-    public class EpubContainer : EpubElementTextFile
+    public class EpubContainer : EpubElementXmlFile
     {
         #region Const
 

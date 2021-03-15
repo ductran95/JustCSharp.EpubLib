@@ -11,7 +11,7 @@ namespace JustCSharp.Epub.Meta
     /// <summary>
     /// Optional manifest.xml file
     /// </summary>
-    public class EpubManifest: EpubElementTextFile
+    public class EpubManifest: EpubElementXmlFile
     {
         #region Const
 

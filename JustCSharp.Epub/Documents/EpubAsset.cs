@@ -1,9 +1,8 @@
-using System.Threading;
-using System.Threading.Tasks;
+using JustCSharp.Epub.Insfrastructure;
 
 namespace JustCSharp.Epub.Documents
 {
-    public abstract class EpubAsset: IReader, IWriter
+    public abstract class EpubAsset: EpubElementFile
     {
         #region Const
 
@@ -31,13 +30,7 @@ namespace JustCSharp.Epub.Documents
         
         #region Internal & Private Methods
 
-        public abstract void Read();
-
-        public abstract Task ReadAsync(CancellationToken cancellationToken = default);
-
-        public abstract void Write();
-
-        public abstract Task WriteAsync(CancellationToken cancellationToken = default);
+        
 
         #endregion
     }

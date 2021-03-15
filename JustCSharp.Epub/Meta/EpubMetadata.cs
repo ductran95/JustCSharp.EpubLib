@@ -9,7 +9,7 @@ namespace JustCSharp.Epub.Meta
     /// <summary>
     /// Optional metadata.xml file
     /// </summary>
-    public class EpubMetadata: EpubElementTextFile
+    public class EpubMetadata: EpubElementXmlFile
     {
         #region Const
 
