@@ -3,69 +3,60 @@ using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
 using JustCSharp.Epub.Extensions;
+using JustCSharp.Epub.Insfrastructure;
 
 namespace JustCSharp.Epub.Mime
 {
-    public class EpubMimetype: IWriter
+    public class EpubMimetype : EpubElementTextFile
     {
         #region Const
-
-        private const string FileName = "mimetype";
-        private const int BufferSize = 4096;
 
         #endregion
 
         #region Properties
 
+        public EpubPublication Publication { get; set; }
+
         public string Mimetype { get; set; }
-        public EpubPublication Publication { get; }
+        
 
         #endregion
 
         #region Constructors
 
-        internal EpubMimetype()
+        internal EpubMimetype(): base()
         {
+            BufferSize = 4096;
+            Encoding = Encoding.UTF8;
+            FileName = "mimetype";
             Mimetype = "application/epub+zip";
         }
 
-        public EpubMimetype(EpubPublication publication): this()
+        public EpubMimetype(EpubPublication publication) : this()
         {
             Publication = publication;
+            Parent = publication.Parent;
+            Encoding = Publication.Encoding;
         }
 
         #endregion
 
         #region Public Methods
 
-        public void Write()
-        {
-            byte[] encodedText = GetEncodingContent();
-            var filePath = GetFilePath();
-            
-            encodedText.WriteToFile(filePath, BufferSize);
-        }
-
-        public async Task WriteAsync(CancellationToken cancellationToken = default)
-        {
-            byte[] encodedText = GetEncodingContent();
-            var filePath = GetFilePath();
-
-            await encodedText.WriteToFileAsync(filePath, BufferSize, cancellationToken: cancellationToken);
-        }
+        
 
         #endregion
-        
+
         #region Internal & Private Methods
 
-        internal string GetFilePath()
+        protected override void OnRawDataChanged(string rawData)
         {
-            return Path.Combine(Publication.FilePath, FileName);
+            Mimetype = rawData;
         }
 
-        internal byte[] GetEncodingContent()
+        protected override string BuildRawData()
         {
-            return Publication.Encoding.GetBytes(Mimetype);
+            return Mimetype;
         }
 
         #endregion

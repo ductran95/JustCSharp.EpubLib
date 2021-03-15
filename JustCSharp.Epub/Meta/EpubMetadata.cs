@@ -1,55 +1,72 @@
-using System.Threading;
-using System.Threading.Tasks;
+using JustCSharp.Epub.Extensions;
+using JustCSharp.Epub.Insfrastructure;
+using System.IO;
+using System.Text;
+using System.Xml.Serialization;
 
 namespace JustCSharp.Epub.Meta
 {
-    public class EpubMetadata: IReader, IWriter
+    /// <summary>
+    /// Optional metadata.xml file
+    /// </summary>
+    public class EpubMetadata: EpubElementTextFile
     {
         #region Const
-
-        
 
         #endregion
 
         #region Properties
 
-        
+        public EpubMetaInf MetaInf => (EpubMetaInf)Parent;
 
         #endregion
 
         #region Constructors
 
-        
+        internal EpubMetadata()
+        {
+            SetDefaultData();
+        }
+
+        internal EpubMetadata(EpubMetaInf metaInf) : this()
+        {
+            SetDefaultData();
+            Parent = metaInf;
+            Encoding = MetaInf.Publication.Encoding;
+        }
+
+        private void SetDefaultData()
+        {
+            FileName = "metadata.xml";
+            BufferSize = 4096;
+            Encoding = Encoding.UTF8;
+        }
 
         #endregion
 
         #region Public Methods
 
-        
+
+
+        #endregion
+
+        #region Internal & Private Methods
+
+        protected override void OnRawDataChanged(string rawData)
+        {
+            var newObject = rawData.DeserializeXml<EpubMetadata>();
+        }
+
+        protected override string BuildRawData()
+        {
+            return this.SerializeXml(Encoding);
+        }
 
         #endregion
         
-        #region Internal & Private Methods
+        #region Sub Classes
 
-        public void Read()
-        {
-            throw new System.NotImplementedException();
-        }
-
-        public async Task ReadAsync(CancellationToken cancellationToken = default)
-        {
-            throw new System.NotImplementedException();
-        }
-
-        public void Write()
-        {
-            throw new System.NotImplementedException();
-        }
-
-        public async Task WriteAsync(CancellationToken cancellationToken = default)
-        {
-            throw new System.NotImplementedException();
-        }
+        
 
         #endregion
     }

@@ -4,12 +4,13 @@ using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
 using JustCSharp.Epub.Documents;
+using JustCSharp.Epub.Insfrastructure;
 using JustCSharp.Epub.Meta;
 using JustCSharp.Epub.Mime;
 
 namespace JustCSharp.Epub
 {
-    public class EpubPublication: IReader, IWriter
+    public class EpubPublication: EpubElementFile
     {
         #region Const
 
@@ -19,7 +20,6 @@ namespace JustCSharp.Epub
 
         #region Properties
 
-        public string FilePath { get; set; }
         public string Version { get; set; }
         public Encoding Encoding { get; set; }
         
@@ -31,47 +31,47 @@ namespace JustCSharp.Epub
 
         #region Constructors
 
-        internal EpubPublication()
+        public EpubPublication()
+        {
+            SetDefaultData();
+            Parent = new EpubRootFolder();
+        }
+
+        public EpubPublication(string fileUrl)
+        {
+            SetDefaultData();
+            
+            // Auto detect version & encoding
+            var directory = Path.GetDirectoryName(fileUrl);
+            Parent = new EpubRootFolder(directory);
+        }
+
+        private void SetDefaultData()
         {
             Version = "3.2";
             Encoding = Encoding.UTF8;
         }
 
         #endregion
-
+        
         #region Public Methods
 
-        public static EpubPublication Load(string fileUrl)
-        {
-            return new EpubPublication();
-        }
-        
-        public static EpubPublication Load(byte[] fileContent, string fileName)
-        {
-            return new EpubPublication();
-        }
-        
-        public static EpubPublication Load(Stream fileContent, string fileName)
-        {
-            return new EpubPublication();
-        }
-        
-        public void Read()
+        public override void Read()
         {
             throw new System.NotImplementedException();
         }
 
-        public async Task ReadAsync(CancellationToken cancellationToken = default)
+        public override async Task ReadAsync(CancellationToken cancellationToken = default)
         {
             throw new System.NotImplementedException();
         }
 
-        public void Write()
+        public override void Write()
         {
             throw new System.NotImplementedException();
         }
 
-        public async Task WriteAsync(CancellationToken cancellationToken = default)
+        public override async Task WriteAsync(CancellationToken cancellationToken = default)
         {
             throw new System.NotImplementedException();
         }
@@ -80,7 +80,6 @@ namespace JustCSharp.Epub
         
         #region Internal & Private Methods
 
-        
 
         #endregion
     }

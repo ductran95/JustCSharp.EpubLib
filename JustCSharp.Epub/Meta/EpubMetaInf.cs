@@ -1,18 +1,23 @@
+using JustCSharp.Epub.Insfrastructure;
 using System.Threading;
 using System.Threading.Tasks;
 
 namespace JustCSharp.Epub.Meta
 {
-    public class EpubMetaInf: IReader, IWriter
+    public class EpubMetaInf: EpubElementFolder
     {
         #region Const
 
-        
+
 
         #endregion
 
         #region Properties
 
+        public EpubRootFolder RootFolder => (EpubRootFolder) RootFolder;
+
+        public EpubPublication Publication { get; set; }
+        
         public EpubContainer Container { get; set; }
         public EpubManifest Manifest { get; set; }
         public EpubMetadata Metadata { get; set; }
@@ -21,28 +26,44 @@ namespace JustCSharp.Epub.Meta
 
         #region Constructors
 
+        internal EpubMetaInf()
+        {
+            SetDefaultData();
+            Container = new EpubContainer();
+        }
         
+        internal EpubMetaInf(EpubPublication publication)
+        {
+            SetDefaultData();
+            Publication = publication;
+            Parent = publication.Parent;
+        }
+        
+        private void SetDefaultData()
+        {
+            
+        }
 
         #endregion
 
         #region Public Methods
 
-        public void Read()
+        public override void Read()
         {
             throw new System.NotImplementedException();
         }
 
-        public async Task ReadAsync(CancellationToken cancellationToken = default)
+        public override async Task ReadAsync(CancellationToken cancellationToken = default)
         {
             throw new System.NotImplementedException();
         }
 
-        public void Write()
+        public override void Write()
         {
             throw new System.NotImplementedException();
         }
 
-        public async Task WriteAsync(CancellationToken cancellationToken = default)
+        public override async Task WriteAsync(CancellationToken cancellationToken = default)
         {
             throw new System.NotImplementedException();
         }
@@ -51,7 +72,6 @@ namespace JustCSharp.Epub.Meta
         
         #region Internal & Private Methods
 
-        
 
         #endregion
     }
