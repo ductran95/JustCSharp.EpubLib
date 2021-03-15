@@ -26,6 +26,8 @@ namespace Namespace
 
         #endregion
         
+        #region Internal & Private Methods
+        
         
 
         #endregion
