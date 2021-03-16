@@ -3,6 +3,7 @@ using System.IO;
 using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
+using JustCSharp.Epub.Constants;
 using JustCSharp.Epub.Documents;
 using JustCSharp.Epub.Insfrastructure;
 using JustCSharp.Epub.Meta;
@@ -10,7 +11,7 @@ using JustCSharp.Epub.Mime;
 
 namespace JustCSharp.Epub
 {
-    public class EpubPublication: EpubElementFile
+    public class EpubPublication: EpubElementBinaryFile
     {
         #region Const
 
@@ -56,25 +57,7 @@ namespace JustCSharp.Epub
         
         #region Public Methods
 
-        public override void Read()
-        {
-            throw new System.NotImplementedException();
-        }
-
-        public override async Task ReadAsync(CancellationToken cancellationToken = default)
-        {
-            throw new System.NotImplementedException();
-        }
-
-        public override void Write()
-        {
-            throw new System.NotImplementedException();
-        }
-
-        public override async Task WriteAsync(CancellationToken cancellationToken = default)
-        {
-            throw new System.NotImplementedException();
-        }
+        
 
         #endregion
         

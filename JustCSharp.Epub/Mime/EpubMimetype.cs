@@ -7,7 +7,7 @@ using JustCSharp.Epub.Insfrastructure;
 
 namespace JustCSharp.Epub.Mime
 {
-    public class EpubMimetype : EpubElementXmlFile
+    public class EpubMimetype : EpubElementTextFile
     {
         #region Const
 
@@ -26,7 +26,6 @@ namespace JustCSharp.Epub.Mime
 
         internal EpubMimetype(): base()
         {
-            BufferSize = 4096;
             Encoding = Encoding.UTF8;
             FileName = "mimetype";
             Mimetype = "application/epub+zip";

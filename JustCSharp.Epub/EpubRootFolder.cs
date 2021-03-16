@@ -1,5 +1,6 @@
 using System.Threading;
 using System.Threading.Tasks;
+using JustCSharp.Epub.Constants;
 using JustCSharp.Epub.Insfrastructure;
 
 namespace JustCSharp.Epub
@@ -33,20 +34,20 @@ namespace JustCSharp.Epub
 
         #region Public Methods
 
-        public override void Read()
+        public override void Read(int bufferSize = EpubDefaultValues.BufferSize)
         {
         }
 
-        public override Task ReadAsync(CancellationToken cancellationToken = default)
+        public override Task ReadAsync(int bufferSize = EpubDefaultValues.BufferSize, CancellationToken cancellationToken = default)
         {
             return Task.CompletedTask;
         }
 
-        public override void Write()
+        public override void Write(int bufferSize = EpubDefaultValues.BufferSize)
         {
         }
 
-        public override Task WriteAsync(CancellationToken cancellationToken = default)
+        public override Task WriteAsync(int bufferSize = EpubDefaultValues.BufferSize, CancellationToken cancellationToken = default)
         {
             return Task.CompletedTask;
         }

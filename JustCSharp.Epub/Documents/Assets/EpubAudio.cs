@@ -1,9 +1,10 @@
 using System.Threading;
 using System.Threading.Tasks;
+using JustCSharp.Epub.Constants;
 
 namespace JustCSharp.Epub.Documents.Assets
 {
-    public class EpubAudio: EpubAsset
+    public class EpubAudio: EpubBinaryAsset
     {
         #region Const
 
@@ -31,25 +32,6 @@ namespace JustCSharp.Epub.Documents.Assets
         
         #region Internal & Private Methods
 
-        public override void Read()
-        {
-            throw new System.NotImplementedException();
-        }
-
-        public override async Task ReadAsync(CancellationToken cancellationToken = default)
-        {
-            throw new System.NotImplementedException();
-        }
-
-        public override void Write()
-        {
-            throw new System.NotImplementedException();
-        }
-
-        public override async Task WriteAsync(CancellationToken cancellationToken = default)
-        {
-            throw new System.NotImplementedException();
-        }
 
         #endregion
     }

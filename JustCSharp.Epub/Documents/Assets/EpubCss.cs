@@ -1,9 +1,6 @@
-using System.Threading;
-using System.Threading.Tasks;
-
 namespace JustCSharp.Epub.Documents.Assets
 {
-    public class EpubCss: EpubAsset
+    public class EpubCss: EpubTextAsset
     {
         #region Const
 
@@ -31,22 +28,12 @@ namespace JustCSharp.Epub.Documents.Assets
         
         #region Internal & Private Methods
 
-        public override void Read()
+        protected override void OnRawDataChanged(string rawData)
         {
             throw new System.NotImplementedException();
         }
 
-        public override async Task ReadAsync(CancellationToken cancellationToken = default)
-        {
-            throw new System.NotImplementedException();
-        }
-
-        public override void Write()
-        {
-            throw new System.NotImplementedException();
-        }
-
-        public override async Task WriteAsync(CancellationToken cancellationToken = default)
+        protected override string BuildRawData()
         {
             throw new System.NotImplementedException();
         }

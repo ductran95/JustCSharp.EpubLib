@@ -33,7 +33,6 @@ namespace JustCSharp.Epub.Documents
         private void SetDefaultData()
         {
             FileName = "package.ocf";
-            BufferSize = 4096;
             Encoding = Encoding.UTF8;
         }
 
@@ -47,15 +46,11 @@ namespace JustCSharp.Epub.Documents
 
         #region Internal & Private Methods
 
-        protected override void OnRawDataChanged(string rawData)
+        protected override void MapFrom(object data)
         {
-            var newObject = rawData.DeserializeXml<EpubPackageDocument>();
-
-        }
-
-        protected override string BuildRawData()
-        {
-            return this.SerializeXml(Encoding);
+            if (data is EpubPackageDocument newObject)
+            {
+            }
         }
 
         #endregion

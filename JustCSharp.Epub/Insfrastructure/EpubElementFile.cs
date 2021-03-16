@@ -5,6 +5,7 @@ using System.IO;
 using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
+using JustCSharp.Epub.Constants;
 
 namespace JustCSharp.Epub.Insfrastructure
 {
@@ -14,19 +15,18 @@ namespace JustCSharp.Epub.Insfrastructure
 
         public EpubElementFolder Parent { get; set; }
         public string FileName { get; set; }
-        public int BufferSize { get; set; }
 
         #endregion
 
         #region Public Methods
 
-        public abstract void Read();
+        public abstract void Read(int bufferSize = EpubDefaultValues.BufferSize);
 
-        public abstract Task ReadAsync(CancellationToken cancellationToken = default);
+        public abstract Task ReadAsync(int bufferSize = EpubDefaultValues.BufferSize, CancellationToken cancellationToken = default);
 
-        public abstract void Write();
+        public abstract void Write(int bufferSize = EpubDefaultValues.BufferSize);
 
-        public abstract Task WriteAsync(CancellationToken cancellationToken = default);
+        public abstract Task WriteAsync(int bufferSize = EpubDefaultValues.BufferSize, CancellationToken cancellationToken = default);
 
         #endregion
         

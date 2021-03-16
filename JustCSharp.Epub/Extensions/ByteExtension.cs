@@ -7,7 +7,20 @@ namespace JustCSharp.Epub.Extensions
 {
     public static class FileExtension
     {
-        public static string ReadFromFile(this string filePath, Encoding encoding, int bufferSize = 4096)
+        public static byte[] ReadBinaryFile(this string filePath, int bufferSize = 4096)
+        {
+            using (FileStream sourceStream = new FileStream(filePath,
+                FileMode.Open, FileAccess.Read, FileShare.ReadWrite,
+                bufferSize: bufferSize, useAsync: false))
+            {
+                var byteContent = new byte[sourceStream.Length];
+                sourceStream.Read(byteContent, 0, (int) sourceStream.Length);
+                return byteContent;
+            };
+        }
+
+        
+        public static string ReadTextFile(this string filePath, Encoding encoding, int bufferSize = 4096)
         {
             using (FileStream sourceStream = new FileStream(filePath,
                 FileMode.Open, FileAccess.Read, FileShare.ReadWrite,
@@ -18,8 +31,20 @@ namespace JustCSharp.Epub.Extensions
                 return encoding.GetString(byteContent);
             };
         }
+        
+        public static async Task<byte[]> ReadBinaryFileAsync(this string filePath, int bufferSize = 4096, CancellationToken cancellationToken = default)
+        {
+            using (FileStream sourceStream = new FileStream(filePath,
+                FileMode.Open, FileAccess.Read, FileShare.ReadWrite,
+                bufferSize: bufferSize, useAsync: false))
+            {
+                var byteContent = new byte[sourceStream.Length];
+                await sourceStream.ReadAsync(byteContent, 0, (int)sourceStream.Length, cancellationToken).ConfigureAwait(false);
+                return byteContent;
+            };
+        }
 
-        public static async Task<string> ReadFromFileAsync(this string filePath, Encoding encoding, int bufferSize = 4096, CancellationToken cancellationToken = default)
+        public static async Task<string> ReadTextFileAsync(this string filePath, Encoding encoding, int bufferSize = 4096, CancellationToken cancellationToken = default)
         {
             using (FileStream sourceStream = new FileStream(filePath,
                 FileMode.Open, FileAccess.Read, FileShare.ReadWrite,
@@ -31,7 +56,7 @@ namespace JustCSharp.Epub.Extensions
             };
         }
 
-        public static void WriteToFile(this byte[] data, string filePath, int bufferSize = 4096)
+        public static void WriteBinaryFile(this string filePath, byte[] data, int bufferSize = 4096)
         {
             using (FileStream sourceStream = new FileStream(filePath,
                 FileMode.OpenOrCreate, FileAccess.Write, FileShare.Read,
@@ -41,7 +66,7 @@ namespace JustCSharp.Epub.Extensions
             };
         }
 
-        public static void WriteToFile(this string data, string filePath, Encoding encoding, int bufferSize = 4096)
+        public static void WriteTextFile(this string filePath, string data, Encoding encoding, int bufferSize = 4096)
         {
             using (FileStream sourceStream = new FileStream(filePath,
                 FileMode.OpenOrCreate, FileAccess.Write, FileShare.Read,
@@ -52,7 +77,7 @@ namespace JustCSharp.Epub.Extensions
             };
         }
 
-        public static async Task WriteToFileAsync(this byte[] data, string filePath, int bufferSize = 4096, CancellationToken cancellationToken = default)
+        public static async Task WriteBinaryFileAsync(this string filePath, byte[] data, int bufferSize = 4096, CancellationToken cancellationToken = default)
         {
             using (FileStream sourceStream = new FileStream(filePath,
                 FileMode.OpenOrCreate, FileAccess.Write, FileShare.Read,
@@ -62,7 +87,7 @@ namespace JustCSharp.Epub.Extensions
             };
         }
 
-        public static async Task WriteToFileAsync(this string data, string filePath, Encoding encoding, int bufferSize = 4096, CancellationToken cancellationToken = default)
+        public static async Task WriteTextFileAsync(this string filePath, string data, Encoding encoding, int bufferSize = 4096, CancellationToken cancellationToken = default)
         {
             using (FileStream sourceStream = new FileStream(filePath,
                 FileMode.OpenOrCreate, FileAccess.Write, FileShare.Read,

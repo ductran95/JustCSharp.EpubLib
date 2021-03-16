@@ -48,7 +48,6 @@ namespace JustCSharp.Epub.Meta
         private void SetDefaultData()
         {
             FileName = "container.xml";
-            BufferSize = 4096;
             Encoding = Encoding.UTF8;
             Version = "1.0";
         }
@@ -63,17 +62,13 @@ namespace JustCSharp.Epub.Meta
 
         #region Internal & Private Methods
 
-        protected override void OnRawDataChanged(string rawData)
+        protected override void MapFrom(object data)
         {
-            var newObject = rawData.DeserializeXml<EpubContainer>();
-
-            this.Version = newObject.Version;
-            this.RootFiles = newObject.RootFiles;
-        }
-
-        protected override string BuildRawData()
-        {
-            return this.SerializeXml(Encoding);
+            if (data is EpubContainer newObject)
+            {
+                this.Version = newObject.Version;
+                this.RootFiles = newObject.RootFiles;
+            }
         }
 
         #endregion
